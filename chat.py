@@ -3,6 +3,8 @@ from dotenv import load_dotenv
 import requests
 from bardapi.constants import SESSION_HEADERS
 from bardapi import Bard
+from speech_to_text_interpreter import SpeechToTextInterpreter
+from ttsi import TextToSpeechPrinter
 
 load_dotenv()
 
@@ -46,9 +48,9 @@ class ChatBot():
     def chat(self):
         print(f"Hello I'm {self.name}")
         self.get_user_info()
-        # print("What can I do for you today?")
+        print("What can I do for you today?")
         while True:
-            user_input = input("How can I help you? ")
+            user_input = input(" ")
             if user_input.lower() == "quit":
                 print("Bye have a beautiful day!")
                 break
@@ -56,5 +58,6 @@ class ChatBot():
             response = self.get_response(user_input)
             print(response)
 
-chatbot = ChatBot()
-chatbot.chat()
+with TextToSpeechPrinter(), SpeechToTextInterpreter():
+    chatbot = ChatBot()
+    chatbot.chat()
